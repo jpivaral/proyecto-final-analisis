@@ -5,6 +5,7 @@
     <jta-data-source>jdbc/mySqlPool</jta-data-source>
     <class>com.umg.proyectocovid.model.Pais</class>
     <class>com.umg.proyectocovid.model.Departamento</class>
+    <class>com.umg.proyectocovid.model.Municipio</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.schema-generation.database.action" value="create"/>
