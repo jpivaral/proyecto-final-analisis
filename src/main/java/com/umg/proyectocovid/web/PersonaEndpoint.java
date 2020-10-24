@@ -1,9 +1,11 @@
 package com.umg.proyectocovid.web;
 
+import com.umg.proyectocovid.model.Persona;
 import com.umg.proyectocovid.repository.PersonaRepository;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -35,6 +37,16 @@ public class PersonaEndpoint {
             @PathParam("id") Integer id){
         return Response
                 .ok(personaRepository.findAllByIdPaisAndId(idPais, id))
+                .build();
+    }
+    
+    @POST
+    public Response createPersona(@PathParam("idPais") Integer idPais,
+            Persona persona){
+        persona
+                .getIdentificaciones().forEach( System.out::println);
+        return Response
+                .ok()
                 .build();
     }
     
