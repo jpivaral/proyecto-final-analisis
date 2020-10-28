@@ -17,6 +17,7 @@
         <deltaspike.version>1.9.4</deltaspike.version>
         <eclipsePersistence.version>2.7.7</eclipsePersistence.version>
         <jakartaPersistence.version>2.2.3</jakartaPersistence.version>
+        <primeFaces.version>8.0</primeFaces.version>
     </properties>
     
     <dependencies>
@@ -92,6 +93,11 @@
             <artifactId>jakarta.jakartaee-api</artifactId>
             <version>8.0.0</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.primefaces</groupId>
+            <artifactId>primefaces</artifactId>
+            <version>${primeFaces.version}</version>
         </dependency>
     </dependencies>
     <dependencyManagement>

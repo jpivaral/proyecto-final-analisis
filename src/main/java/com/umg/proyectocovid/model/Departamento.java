@@ -42,7 +42,6 @@ public class Departamento implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
     @Column(name = "ID_DEPARTAMENTO")
     private Integer idDepartamento;
     @JsonIgnore

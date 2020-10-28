@@ -34,7 +34,6 @@ public class Pais implements Serializable {
     @Id
     @Basic(optional = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @NotNull
     @Column(name = "ID_PAIS")
     private Integer idPais;
     
