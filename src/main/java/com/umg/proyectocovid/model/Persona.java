@@ -51,7 +51,7 @@ public class Persona implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "TELEFONO")
-    private int telefono;
+    private Long telefono;
     
     @Basic(optional = false)
     @NotNull
@@ -65,9 +65,18 @@ public class Persona implements Serializable {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate fechaNacimiento;
     
-    @OneToMany(cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "ID_PERSONA")
     private List<IdentificacionPersona> identificaciones;
+    
+    public String getFullGenero(){
+        return this.getGenero().equalsIgnoreCase("M") ? "MASCULINO" : "FEMENINO";
+    }
+    
+    public String getIdentificacion(){
+        return identificaciones.stream()
+                .findFirst()
+                .orElse(new IdentificacionPersona()).getIdentificacion();
+    }
 
 }

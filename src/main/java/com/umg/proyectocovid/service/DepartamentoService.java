@@ -24,6 +24,11 @@ import lombok.Setter;
 @SessionScoped
 @Data
 public class DepartamentoService implements Serializable {
+    
+    @Inject
+    @Getter(AccessLevel.NONE)
+    @Setter(AccessLevel.NONE)
+    private MunicipioService municipioService;
 
     @Inject
     @Getter(AccessLevel.NONE)
@@ -57,6 +62,8 @@ public class DepartamentoService implements Serializable {
         var departamento = new Departamento();
         if (this.getIdDepartamento() != null) {
             departamento.setIdDepartamento(idDepartamento);
+            var deptoDB = departamentoRepository.findBy(idDepartamento);
+            departamento.setMunicipios(deptoDB.getMunicipios());
         }
         departamento.setIdPais(idPais);
         departamento.setDepartamento(nombreDepartamento);
@@ -82,5 +89,11 @@ public class DepartamentoService implements Serializable {
         this.setIdDepartamento(null);
         this.setNombreDepartamento(null);
         return "./save.xhtml?faces-redirect=true";
+    }
+    
+    public String redirectMunicipio(Integer idPais, Integer idDepartamento){
+        municipioService.setIdPais(idPais);
+        municipioService.setIdDepartamento(idDepartamento);
+        return "/municipio/list.xhtml?faces-redirect=true";
     }
 }

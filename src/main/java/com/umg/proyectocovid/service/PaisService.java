@@ -42,6 +42,8 @@ public class PaisService implements Serializable{
         var pais = new Pais();
         if(this.getIdPais() != null){
             pais.setIdPais(idPais);
+            var paisDb = paisRepository.findBy(idPais);
+            pais.setDepartamentos(paisDb.getDepartamentos());
         }        
         pais.setPais(nombrePais);
         paisRepository.save(pais);

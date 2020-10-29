@@ -1,49 +1,43 @@
-<?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
-    <h:head>
-        <title>Facelet Title</title>
-    </h:head>
-    <h:body>
-        <h:form>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="../menu.xhtml">
+    <ui:define name="general_content">
+        <p:growl id="msgs" showDetail="true" skipDetailIfEqualsSummary="true" />
+        <p:panel header="Seleccione un pais" style="margin-bottom:10px;">
+            <h:panelGrid columns="2" cellpadding="5">
+                <p:outputLabel value="Pais: " />
+                <p:selectOneMenu id="pais" value="#{departamentoService.idPais}" style="width:150px">
+                    <p:ajax listener="#{departamentoService.onPaisChange()}" update="departamentos" />
+                    <f:selectItem itemLabel="Seleccione Pais" itemValue="" noSelectionOption="true" />
+                    <f:selectItems value="#{departamentoService.paises.entrySet()}" var="entry" 
+                                   itemValue="#{entry.key}" itemLabel="#{entry.value}" />
+                </p:selectOneMenu>
+            </h:panelGrid>
+        </p:panel>
 
-            <p:growl id="msgs" showDetail="true" skipDetailIfEqualsSummary="true" />
-            <p:panel header="Seleccione un pais" style="margin-bottom:10px;">
-                <h:panelGrid columns="2" cellpadding="5">
-                    <p:outputLabel value="Pais: " />
-                    <p:selectOneMenu id="pais" value="#{departamentoService.idPais}" style="width:150px">
-                        <p:ajax listener="#{departamentoService.onPaisChange()}" update="departamentos" />
-                        <f:selectItem itemLabel="Seleccione Pais" itemValue="" noSelectionOption="true" />
-                        <f:selectItems value="#{departamentoService.paises.entrySet()}" var="entry" 
-                                       itemValue="#{entry.key}" itemLabel="#{entry.value}" />
-                    </p:selectOneMenu>
-                </h:panelGrid>
-            </p:panel>
-
-            <p:dataTable  id="departamentos"  var="departamento" value="#{departamentoService.departamentos}">
-                <p:column headerText="Id">
-                    <h:outputText value="#{departamento.idDepartamento}" />
-                </p:column>
-                <p:column headerText="Departamento">
-                    <h:outputText value="#{departamento.departamento}" />
-                </p:column>
-                <p:column headerText="Acciones">
-                    <p:commandLink action="#{departamentoService.redirect(departamento.idDepartamento)}" ajax="false">
-                        <p:commandButton value="Modificar"/>
-                    </p:commandLink>
-                    <p:commandLink action="#{departamentoService.delete(departamento.idDepartamento)}" ajax="false">
-                        <p:commandButton value="Eliminar"/>
-                    </p:commandLink>
-                    <p:commandLink action="/municipio/list.xhtml?faces-redirect=true" ajax="false">
-                        <p:commandButton value="Ver municipios"/>
-                    </p:commandLink>
-                </p:column>               
-            </p:dataTable>
-            <p:commandButton action="#{departamentoService.redirect()}" value="Agregar"/>
-        </h:form>
-    </h:body>
-</html>
+        <p:dataTable  id="departamentos"  var="departamento" value="#{departamentoService.departamentos}">
+            <p:column headerText="Id">
+                <h:outputText value="#{departamento.idDepartamento}" />
+            </p:column>
+            <p:column headerText="Departamento">
+                <h:outputText value="#{departamento.departamento}" />
+            </p:column>
+            <p:column headerText="Acciones">
+                <p:commandLink action="#{departamentoService.redirect(departamento.idDepartamento)}" ajax="false">
+                    <p:commandButton value="Modificar"/>
+                </p:commandLink>
+                <p:commandLink action="#{departamentoService.delete(departamento.idDepartamento)}" ajax="false">
+                    <p:commandButton value="Eliminar"/>
+                </p:commandLink>
+                <p:commandLink action="#{departamentoService.redirectMunicipio( departamento.idPais, departamento.idDepartamento)}" ajax="false">
+                    <p:commandButton value="Ver municipios"/>
+                </p:commandLink>
+            </p:column>               
+        </p:dataTable>
+        <p:commandButton action="#{departamentoService.redirect()}" value="Agregar"/>
+    </ui:define>
+</ui:composition>
 

@@ -1,0 +1,35 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="../menu.xhtml">
+    <ui:define name="general_content">
+        <p:dataTable var="persona" value="#{personaService.personas}">
+            <p:column headerText="Id">
+                <h:outputText value="#{persona.idPersona}" />
+            </p:column>
+            <p:column headerText="Nombre">
+                <h:outputText value="#{persona.nombre} #{persona.apellido}" />
+            </p:column>
+            <p:column headerText="Telefono">
+                <h:outputText value="#{persona.telefono}" />
+            </p:column>
+            <p:column headerText="Genero">
+                <h:outputText value="#{persona.fullGenero}" />
+            </p:column>
+            <p:column headerText="Fecha de nacimiento">
+                <h:outputText value="#{persona.fechaNacimiento}" />
+            </p:column>
+            <p:column headerText="Identificacion">
+                <h:outputText value="#{persona.identificacion}" />
+            </p:column>
+            <p:column headerText="Acciones">
+                <p:commandLink action="#{personaService.redirect(persona.idPersona)}" ajax="false">
+                    <p:commandButton value="Modificar"/>
+                </p:commandLink>
+            </p:column>               
+        </p:dataTable>
+        <p:commandButton action="#{personaService.redirect()}" value="Agregar"/>
+    </ui:define>
+</ui:composition>
