@@ -3,37 +3,31 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
-    
-<script type="text/javascript">
-    function handleLoginRequest(xhr, status, args) {
-        if(args.validationFailed || !args.loggedIn) {
-            PF('dlg').jq.effect("shake", {times:5}, 100);
-        }
-        else {
-            PF('dlg').hide();
-            $('#loginLink').fadeOut();
-        }
-    }
-</script>
- 
- 
-<h:form>     
-    <p:growl id="growl" sticky="true" showDetail="true" life="3000" />
-     
-    <p:dialog header="Login" widgetVar="dlg" resizable="false">
-        <h:panelGrid columns="2" cellpadding="5">
-            <h:outputLabel for="username" value="Username: " />
-            <p:inputText id="username" value="#{test.usuario}" required="true" label="username" />
-             
-            <h:outputLabel for="password" value="Password:" />
-            <p:password id="password" value="" required="true" label="password" />
-             
-            <f:facet name="footer">
-                <p:commandButton value="Login" update="growl" action="#{test.colocarHola}"
-                                 oncomplete="handleLoginRequest(xhr, status, args)" />
-            </f:facet>  
-        </h:panelGrid>
-    </p:dialog>    
-</h:form>
+      xmlns:f="http://xmlns.jcp.org/jsf/core"> 
+    <h:head>
+        <title>Ingreso</title>
+        <style>
+            body {
+              background-image: url('/proyecto-final-analisis/faces/images/background.png');
+            }
+        </style>
+    </h:head>
+    <h:body>
+        <h:form>     
+            <p:growl id="growl" sticky="true" showDetail="true" life="3000" />
+            <p:panel id="basic" header="Login" style="margin-bottom:20px; align-content: center">
+                <h:panelGrid columns="2" cellpadding="5">
+                    <h:outputLabel for="username" value="Usuario: " />
+                    <p:inputText id="username" value="#{loginService.usuario}" required="true" label="usuario" />
+
+                    <h:outputLabel for="password" value="Contrasena: " />
+                    <p:password id="password" value="#{loginService.password}" required="true" label="contrasena" />
+
+                    <f:facet name="footer">
+                        <p:commandButton value="Login" update="growl" action="#{loginService.login()}"/>
+                    </f:facet>  
+                </h:panelGrid>
+                </p:panel>
+        </h:form>
+    </h:body>
 </html>

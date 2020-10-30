@@ -2,6 +2,7 @@ package com.umg.proyectocovid.service;
 
 import com.umg.proyectocovid.model.IdentificacionPersona;
 import com.umg.proyectocovid.model.Persona;
+import com.umg.proyectocovid.model.Usuario;
 import com.umg.proyectocovid.repository.IdentificacionPersonaRepository;
 import com.umg.proyectocovid.repository.PaisRepository;
 import com.umg.proyectocovid.repository.PersonaRepository;
@@ -49,6 +50,11 @@ public class PersonaService implements Serializable {
     @Getter(AccessLevel.NONE)
     @Setter(AccessLevel.NONE)
     private TipoIdentificacionRepository tipoIdentificacionRepository;
+    
+    @Inject
+    @Getter(AccessLevel.NONE)
+    @Setter(AccessLevel.NONE)
+    private UsuarioService usuarioService;
 
     private Integer idPersona;
     private String nombre;
@@ -97,6 +103,7 @@ public class PersonaService implements Serializable {
         identificacionPersona.setIdentificacion(identificacion);
         persona.setIdentificaciones( Collections.singletonList(identificacionPersona) );
         persona = personaRepository.save(persona);
+        usuarioService.saveUsuarioFromPersona(persona);
         return "./list.xhtml?faces-redirect=true";
     }
 

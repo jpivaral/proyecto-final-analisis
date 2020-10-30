@@ -3,6 +3,8 @@
   <persistence-unit name="pu_covid" transaction-type="RESOURCE_LOCAL">
     <description>Persistence Unit</description>
     <jta-data-source>jdbc/mySqlPool</jta-data-source>
+    <class>com.umg.proyectocovid.model.Usuario</class>
+    <class>com.umg.proyectocovid.model.Rol</class>
     <properties>
       <property name="javax.persistence.schema-generation.database.action" value="create"/>
       <property name="javax.persistence.schema-generation.scripts.action" value="create"/>
