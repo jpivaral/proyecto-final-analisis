@@ -41,9 +41,19 @@ public class MunicipioService implements Serializable {
     private String nombreMunicipio;
 
     public Map<Integer, String> getDepartamentos() {
+        return this.departamentosByIdPais(idPais);
+    }
+    
+    public Map<Integer, String> departamentosByIdPais(Integer idPais) {
         return idPais != null ?  departamentoRepository.findByIdPais(idPais)
                 .stream()
                 .collect(Collectors.toMap(Departamento::getIdDepartamento, Departamento::getDepartamento)) : null;
+    }
+    
+     public Map<Integer, String> municipiosByIdDepartamento(Integer idDepartamento) {
+        return idDepartamento != null ?  municipioRepository.findByIdDepartamento(idDepartamento)
+                .stream()
+                .collect(Collectors.toMap(Municipio::getIdMunicipio, Municipio::getMunicipio)) : null;
     }
 
     public List<Municipio> getMunicipios() {

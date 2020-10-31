@@ -1,0 +1,52 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="../menu.xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:define name="general_content">
+        <p:growl id="growl" sticky="true" showDetail="true"/>
+        <p:panel header="Guardar Hospital">
+            <p:messages />
+            <h:panelGrid columns="2" columnClasses="label, value">
+                <h:outputText value="Id Hospital " />
+                <p:inputText value="#{hospitalService.idHospital}" required="false" readonly="true"/>
+
+                <p:outputLabel value="Pais * " />
+                <p:selectOneMenu id="pais" value="#{hospitalService.idPais}" style="width:150px">
+                    <p:ajax listener="#{municipioService.onPaisChange()}" update="departamento" />
+                    <f:selectItem itemLabel="Seleccione Pais" itemValue="" noSelectionOption="true" />
+                    <f:selectItems value="#{departamentoService.paises.entrySet()}" var="entry" 
+                                   itemValue="#{entry.key}" itemLabel="#{entry.value}" />
+                </p:selectOneMenu>
+
+                <p:outputLabel value="Departamento * " />
+                <p:selectOneMenu id="departamento" value="#{hospitalService.idDepartamento}" style="width:150px">
+                    <p:ajax listener="#{municipioService.onPaisChange()}" update="municipio" />
+                    <f:selectItem itemLabel="Seleccione Departamento" itemValue="" noSelectionOption="true" />
+                    <f:selectItems value="#{municipioService.departamentosByIdPais(hospitalService.idPais).entrySet()}" var="entry" 
+                                   itemValue="#{entry.key}" itemLabel="#{entry.value}" />
+                </p:selectOneMenu>
+
+                <p:outputLabel value="Municipio * " />
+                <p:selectOneMenu id="municipio" value="#{hospitalService.idMunicipio}" style="width:150px">
+                    <f:selectItem itemLabel="Seleccione Municipio" itemValue="" noSelectionOption="true" />
+                    <f:selectItems value="#{municipioService.municipiosByIdDepartamento(hospitalService.idDepartamento).entrySet()}" var="entry" 
+                                   itemValue="#{entry.key}" itemLabel="#{entry.value}" />
+                </p:selectOneMenu>
+
+                <h:outputText value="Calle y avenida *" />
+                <p:inputText value="#{hospitalService.avenidaYCalle}" required="false"/>
+
+                <h:outputText value="No. de casa o lote *" />
+                <p:inputText value="#{hospitalService.casaOLote}" required="false"/>
+
+                <h:outputText value="Nombre hospital *" />
+                <p:inputText value="#{hospitalService.hospital}" required="false"/>
+
+                <p:commandButton value="Guardar" update="growl" action="#{hospitalService.save()}"/>
+                <p:commandButton value="Regresar" action="./list.xhtml?faces-redirect=true"/>               
+            </h:panelGrid>
+        </p:panel>
+    </ui:define>
+</ui:composition>

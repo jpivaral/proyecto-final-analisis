@@ -8,7 +8,10 @@
             body {
               font-family: sans-serif;
               background-image: url('/proyecto-final-analisis/faces/images/background.png');
-              color: white;
+            }
+            
+            h2{
+                color: white
             }
 
             .sidenav {
@@ -72,11 +75,14 @@
                         <p:menuitem value="Municipios" url="#{request.contextPath}/faces/municipio/list.xhtml" icon="pi pi-home"/>
                         <p:menuitem value="Tipos de identificacion" url="#{request.contextPath}/faces/tipo-identificacion/list.xhtml" icon="pi pi-home"/>
                         <p:menuitem value="Personas" url="#{request.contextPath}/faces/persona/list.xhtml" icon="pi pi-home"/>
+                        <p:menuitem value="Hospitales" url="#{request.contextPath}/faces/hospital/list.xhtml" icon="pi pi-home"/>
+                        <p:menuitem value="Pruebas covid" url="#{request.contextPath}/faces/pruebas-covid/list.xhtml" icon="pi pi-home"/>
+                        <p:menuitem value="Resultados positivos" url="#{request.contextPath}/faces/resultados/positivos.xhtml" icon="pi pi-home"/>
                     </p:submenu>
                 </p:menu> 
                 <p:commandButton value="Logout" action="#{loginService.logout()}"/>
             </div>
-            <span style="font-size:15px;cursor:pointer" onclick="openNav()">&#9776;</span>
+            <span style="font-size:15px;cursor:pointer; color: white" onclick="openNav()">&#9776;</span>
             <h2>Sistema administracion prueba Covid 2020</h2>
             <ui:insert name="general_content" />    
         </h:form>        

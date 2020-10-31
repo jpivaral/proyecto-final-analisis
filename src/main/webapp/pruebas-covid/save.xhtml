@@ -1,0 +1,45 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="../menu.xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:define name="general_content">
+        <p:growl id="growl" sticky="true" showDetail="true"/>
+        <p:panel header="Guardar Prueba">
+            <p:messages />
+            <h:panelGrid columns="2" columnClasses="label, value">
+                
+                <h:outputText value="Id prueba " />
+                <p:inputText value="#{pruebaCovidService.idHospital}" required="false" readonly="true"/>
+                
+                <h:outputText value="Identificacion de la persona *" />
+                <p:inputText value="#{pruebaCovidService.identificacion}" required="false"/>
+
+                <p:outputLabel value="Hospital * " />
+                <p:selectOneMenu id="hospital" value="#{pruebaCovidService.idHospital}" style="width:150px">
+                    <f:selectItem itemLabel="Seleccione Hospital" itemValue="" noSelectionOption="true" />
+                    <f:selectItems value="#{hospitalService.setHospitales.entrySet()}" var="entry" 
+                                   itemValue="#{entry.key}" itemLabel="#{entry.value}" />
+                </p:selectOneMenu>
+
+                <p:outputLabel for="popup" value="Fecha realizacion prueba *" />
+                <p:datePicker id="popup" value="#{pruebaCovidService.fecha}" pattern="yyyy-MM-dd" />
+
+                <h:outputText value="Resultado" />
+                <p:inputText value="#{pruebaCovidService.resultado}" required="false"/>
+
+                <p:commandButton value="Guardar" update="growl" action="#{pruebaCovidService.save()}"/>
+                <p:commandButton value="Regresar" action="./list.xhtml?faces-redirect=true"/>               
+            </h:panelGrid>
+             <p:dialog modal="true" resizable="false" header="Values" widgetVar="dlg" showEffect="fold">
+                <p:panelGrid id="display" columns="4" columnClasses="label,value,label,value">
+                    <h:outputText value="Fecha realizacion prueba *" />
+                    <h:outputText value="#{pruebaCovidService.fecha}">
+                        <f:convertDateTime pattern="yyyy-MM-dd" />
+                    </h:outputText>
+                </p:panelGrid>
+            </p:dialog>
+        </p:panel>
+    </ui:define>
+</ui:composition>
